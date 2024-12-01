@@ -274,50 +274,40 @@ fun DailyForecast(modifier: Modifier = Modifier) {
     }
 }
 }
-@SuppressLint("ComposableDestinationInComposeScope")
+
+
 @Composable
 fun NavigationGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "main") {
         composable("main") {
-            Box(
-                modifier = Modifier.fillMaxWidth() // Box modifier here
-            ) {
-                // Button to navigate to CalculatorPage
-                Button(
-                    onClick = {
-                        navController.navigate("calculator")
-                    },
-                    modifier = Modifier.align(Alignment.Center)
-                        .padding(top = 700.dp)
-                ) {
-                    Text("Go to Calculator")
-                }
-                Button(
-                    onClick = {
-                        navController.navigate("imageCard")
-                    },
-                    modifier = Modifier.align(Alignment.Center)
-                        .padding(top = 800.dp)
-                ) {
-                    Text("Go to CardImage")
-                }
-            }
+            MainScreen(navController)
         }
-
         composable("calculator") {
-            CalculatorPage()
-
+            CalculatorPage(navController) // Assuming CalculatorPage is defined elsewhere
         }
-        composable ("imageCard") {
-            CardImage()
+        composable("imageCard") {
+            CardImage(navController)
         }
-
-
-
-        }
-
     }
+}
 
+@Composable
+fun MainScreen(navController: NavHostController) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Button(
+            onClick = { navController.navigate("calculator") },
+            modifier = Modifier.align(Alignment.Center).padding(top = 700.dp)
+        ) {
+            Text("Go to Calculator")
+        }
+        Button(
+            onClick = { navController.navigate("imageCard") },
+            modifier = Modifier.align(Alignment.Center).padding(top = 800.dp)
+        ) {
+            Text("Go to Card Image")
+        }
+    }
+}
 
 
 

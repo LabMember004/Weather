@@ -12,13 +12,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.weather.MainActivity
 
 @Composable
-fun CalculatorPage() {
+fun CalculatorPage(navController: NavHostController) {
 
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         var number by remember { mutableStateOf(0) }
@@ -213,38 +214,20 @@ fun CalculatorPage() {
             ) {
                 Text(text = "=")
             }
-
-
-        }
-
-    }
-}
-
-@SuppressLint("ComposableDestinationInComposeScope")
-@Composable
-fun Navigation(navController :NavHostController) {
-    NavHost(navController = navController, startDestination="main") {
-        composable("main") {
-            Box(
-                modifier=Modifier.fillMaxWidth()
+            Button (
+                onClick = {
+                    navController.popBackStack()
+                },
+                modifier = Modifier
+                    .padding(top=250.dp , start=3.dp)
             ) {
-                Button (
-                    onClick= {
-                        navController.navigate("calculator")
-
-                    },
-                    modifier = Modifier.align(Alignment.Center)
-                        .padding(top=700.dp)
-                ) {
-                    Text("Go Back to Weather")
-                }
-                composable("calculator") {
-
-
-                }
+                Text("go BACK")
             }
-        }
-    }
 
+        }
+
+
+    }
 }
+
 
